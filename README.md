@@ -6,5 +6,5 @@
 
 [step1:docker安装mysql](./doc/step1.md)
 
-[step2:maven配置](./doc/step2.md)
+[step2:基础配置](./doc/step2.md)
 
