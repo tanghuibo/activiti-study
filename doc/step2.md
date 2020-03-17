@@ -12,7 +12,7 @@ create database activiti_study_framework;
 activiti_study_business
 ```sql
 -- 用户表
-create table table_name
+create table basic_user
 (
 	id bigint auto_increment comment '用户id',
 	name varchar(255) not null comment '用户名称',
