@@ -55,6 +55,12 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.github.tanghuibo</groupId>
+			<artifactId>spring-takeaway-boot-starter</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

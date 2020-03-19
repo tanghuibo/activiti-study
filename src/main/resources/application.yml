@@ -2,6 +2,7 @@ spring:
   datasource:
     password: 123456
     username: root
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/activiti_study_business?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 
 server:
