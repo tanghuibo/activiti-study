@@ -10,3 +10,10 @@ server:
 mybatis:
   mapper-locations: classpath:mapping/**Mapper.xml
 
+
+logging:
+  pattern:
+    console: '%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n'
+  level:
+    root: info
+    org.activiti.engine.impl.persistence.entity.PropertyEntityImpl: debug

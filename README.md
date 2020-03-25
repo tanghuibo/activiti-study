@@ -8,3 +8,5 @@
 
 [step2:基础配置](./doc/step2.md)
 
+[step3:实际使用](./doc/step3.md)
+
