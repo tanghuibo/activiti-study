@@ -25,7 +25,7 @@ public class ActivitiTest {
 
     @Test
     public void deployTest() throws IOException {
-        Deployment deployment = activitiService.deployByResourcePath("请假流程", "bpmn" + File.separator + "leave.xml");
+        Deployment deployment = activitiService.deployByResourcePath("请假流程", "bpmn" + File.separator + "leave.bpmn");
         assert deployment != null;
     }
 
