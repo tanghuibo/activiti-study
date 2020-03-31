@@ -2,7 +2,7 @@ package tanghuibo.github.io.activitistudy.service;
 import org.activiti.engine.repository.Deployment;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import tanghuibo.github.io.activitistudy.ActivitiService;
+import tanghuibo.github.io.activitistudy.service.ActivitiService;
 
 import javax.annotation.Resource;
 import java.io.*;

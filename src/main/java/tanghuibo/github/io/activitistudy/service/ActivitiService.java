@@ -1,4 +1,4 @@
-package tanghuibo.github.io.activitistudy;
+package tanghuibo.github.io.activitistudy.service;
 
 import org.activiti.engine.repository.Deployment;
 

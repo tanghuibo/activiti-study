@@ -1,4 +1,4 @@
-package tanghuibo.github.io.activitistudy.impl;
+package tanghuibo.github.io.activitistudy.service.impl;
 
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import tanghuibo.github.io.activitistudy.ActivitiService;
+import tanghuibo.github.io.activitistudy.service.ActivitiService;
 import tanghuibo.github.io.activitistudy.utils.ToStringUtils;
 
 import javax.annotation.Resource;
