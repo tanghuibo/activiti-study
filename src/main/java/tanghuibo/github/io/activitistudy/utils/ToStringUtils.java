@@ -9,6 +9,6 @@ import org.activiti.engine.repository.Deployment;
 public class ToStringUtils {
 
     public static String toString(Deployment deployment) {
-        return String.format("ID: %s; name: %s", deployment.getId(), deployment.getName());
+        return String.format("id: %s; name: %s, key: %s", deployment.getId(), deployment.getName(), deployment.getKey());
     }
 }

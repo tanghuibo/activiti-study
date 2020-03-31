@@ -1,12 +1,14 @@
 package tanghuibo.github.io.activitistudy.service;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import tanghuibo.github.io.activitistudy.service.ActivitiService;
 
 import javax.annotation.Resource;
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tanghuibo
@@ -34,5 +36,17 @@ public class ActivitiTest {
         List<Deployment> deployments = activitiService.getDeployByName("请假流程");
         assert deployments != null;
         assert deployments.size() == 1;
+    }
+
+    @Test
+    public void startProcessInstanceById() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("leader", "张三");
+        map.put("vp", "李四");
+        map.put("day", 5);
+        ProcessInstance processInstance
+                = activitiService.startProcessInstanceByKey(
+                        "leave_v01", "testBusinessKey", map);
+        System.out.println(processInstance);
     }
 }

@@ -1,10 +1,12 @@
 package tanghuibo.github.io.activitistudy.service;
 
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.runtime.ProcessInstance;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tanghuibo
@@ -37,4 +39,13 @@ public interface ActivitiService {
      * @param name
      */
     List<Deployment> getDeployByName(String name);
+
+    /**
+     * 创建一个新流程
+     * @param processDefinitionKey
+     * @param businessKey
+     * @param map
+     * @return
+     */
+    ProcessInstance startProcessInstanceByKey(String processDefinitionKey, String businessKey, Map<String, Object> map);
 }
