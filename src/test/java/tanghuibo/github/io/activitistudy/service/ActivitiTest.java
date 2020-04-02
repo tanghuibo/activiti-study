@@ -4,6 +4,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import tanghuibo.github.io.activitistudy.entity.DeploymentQueryParam;
 import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
 import tanghuibo.github.io.activitistudy.utils.ToStringUtils;
 
@@ -37,7 +38,9 @@ public class ActivitiTest {
 
     @Test
     public void deployQueryTest() {
-        List<Deployment> deployments = activitiService.getDeployByName("请假流程");
+        DeploymentQueryParam param = new DeploymentQueryParam();
+        param.setDeploymentName("请假流程");
+        List<Deployment> deployments = activitiService.queryDeployment(param);
         assert deployments != null;
         assert deployments.size() == 1;
     }
@@ -62,4 +65,13 @@ public class ActivitiTest {
         assert taskList.size() > 0;
         System.out.println(taskList.stream().map(ToStringUtils::toString).collect(Collectors.joining("\r\n")));
     }
+
+    @Test
+    public void complete() {
+        TaskQueryParam param = new TaskQueryParam();
+        param.setAssignee("李四");
+        List<Task> taskList = activitiService.queryTask(param);
+        taskList.forEach(task -> activitiService.complete(task.getId()));
+    }
+
 }

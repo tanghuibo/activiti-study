@@ -3,6 +3,7 @@ package tanghuibo.github.io.activitistudy.service;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import tanghuibo.github.io.activitistudy.entity.DeploymentQueryParam;
 import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
 
 import java.io.IOException;
@@ -38,9 +39,9 @@ public interface ActivitiService {
 
     /**
      * 通过名称查询
-     * @param name
+     * @param param
      */
-    List<Deployment> getDeployByName(String name);
+    List<Deployment> queryDeployment(DeploymentQueryParam param);
 
     /**
      * 创建一个新流程
@@ -52,8 +53,24 @@ public interface ActivitiService {
     ProcessInstance startProcessInstanceByKey(String processDefinitionKey, String businessKey, Map<String, Object> map);
 
     /**
+     * 创建一个新流程
+     * @param processDefinitionId
+     * @param businessKey
+     * @param map
+     * @return
+     */
+    ProcessInstance startProcessInstanceById(String processDefinitionId, String businessKey, Map<String, Object> map);
+
+    /**
      * 查询任务
+     * @param param
      * @return
      */
     List<Task> queryTask(TaskQueryParam param);
+
+    /**
+     * 完成任务
+     * @param taskId
+     */
+    void complete(String taskId);
 }

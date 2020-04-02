@@ -4,6 +4,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.DeploymentQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import tanghuibo.github.io.activitistudy.entity.DeploymentQueryParam;
 import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
 import tanghuibo.github.io.activitistudy.service.ActivitiService;
 import tanghuibo.github.io.activitistudy.utils.ToStringUtils;
@@ -55,7 +57,8 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     @Override
     public void deleteByName(String name) {
-        getDeployByName(name)
+        DeploymentQueryParam param = new DeploymentQueryParam();
+        queryDeployment(param)
                 .forEach(item -> {
                     repositoryService.deleteDeployment(item.getId());
                     logger.info("删除流程定义:" + ToStringUtils.toString(item));
@@ -63,13 +66,23 @@ public class ActivitiServiceImpl implements ActivitiService {
     }
 
     @Override
-    public List<Deployment> getDeployByName(String name) {
-        return repositoryService.createDeploymentQuery().deploymentName(name).list();
+    public List<Deployment> queryDeployment(DeploymentQueryParam param) {
+        String deploymentName = param.getDeploymentName();
+        DeploymentQuery deploymentQuery = repositoryService.createDeploymentQuery();
+        if(!StringUtils.isEmpty(deploymentName)) {
+            deploymentQuery.deploymentName(deploymentName);
+        }
+        return deploymentQuery.list();
     }
 
     @Override
     public ProcessInstance startProcessInstanceByKey(String processDefinitionKey, String businessKey, Map<String, Object> map) {
         return runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey, map);
+    }
+
+    @Override
+    public ProcessInstance startProcessInstanceById(String processDefinitionId, String businessKey, Map<String, Object> map) {
+        return runtimeService.startProcessInstanceById(processDefinitionId, businessKey, map);
     }
 
     @Override
@@ -84,5 +97,10 @@ public class ActivitiServiceImpl implements ActivitiService {
             taskQuery.taskCandidateUser(candidateUser);
         }
         return taskQuery.list();
+    }
+
+    @Override
+    public void complete(String taskId) {
+        taskService.complete(taskId);
     }
 }

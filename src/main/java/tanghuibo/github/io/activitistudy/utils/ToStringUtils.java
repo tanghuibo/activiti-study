@@ -14,6 +14,6 @@ public class ToStringUtils {
     }
 
     public static String toString(Task task) {
-        return String.format("id: %s; name: %s; assignee: %s", task.getId(), task.getName(), task.getAssignee());
+        return String.format("id: %s; processDefinitionId: %s; name: %s; assignee: %s", task.getId(), task.getProcessDefinitionId(), task.getName(), task.getAssignee());
     }
 }

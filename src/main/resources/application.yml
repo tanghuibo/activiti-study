@@ -4,6 +4,8 @@ spring:
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/activiti_study_business?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 
 server:
   port: 8080
