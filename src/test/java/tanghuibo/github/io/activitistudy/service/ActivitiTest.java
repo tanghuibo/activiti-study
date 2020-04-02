@@ -1,14 +1,18 @@
 package tanghuibo.github.io.activitistudy.service;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
+import tanghuibo.github.io.activitistudy.utils.ToStringUtils;
 
 import javax.annotation.Resource;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author tanghuibo
@@ -48,5 +52,14 @@ public class ActivitiTest {
                 = activitiService.startProcessInstanceByKey(
                         "leave_v01", "testBusinessKey", map);
         System.out.println(processInstance);
+    }
+
+    @Test
+    public void queryTask() {
+        TaskQueryParam param = new TaskQueryParam();
+        param.setAssignee("张三");
+        List<Task> taskList = activitiService.queryTask(param);
+        assert taskList.size() > 0;
+        System.out.println(taskList.stream().map(ToStringUtils::toString).collect(Collectors.joining("\r\n")));
     }
 }

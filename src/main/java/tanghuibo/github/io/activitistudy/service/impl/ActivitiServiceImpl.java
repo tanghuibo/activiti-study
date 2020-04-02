@@ -2,11 +2,16 @@ package tanghuibo.github.io.activitistudy.service.impl;
 
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
 import tanghuibo.github.io.activitistudy.service.ActivitiService;
 import tanghuibo.github.io.activitistudy.utils.ToStringUtils;
 
@@ -30,6 +35,9 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     @Resource
     RuntimeService runtimeService;
+
+    @Resource
+    TaskService taskService;
 
     @Override
     public Deployment deployByResourcePath(String name, String resourcePath) throws IOException {
@@ -62,5 +70,19 @@ public class ActivitiServiceImpl implements ActivitiService {
     @Override
     public ProcessInstance startProcessInstanceByKey(String processDefinitionKey, String businessKey, Map<String, Object> map) {
         return runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey, map);
+    }
+
+    @Override
+    public List<Task> queryTask(TaskQueryParam param) {
+        String assignee = param.getAssignee();
+        String candidateUser = param.getCandidateUser();
+        TaskQuery taskQuery = taskService.createTaskQuery();
+        if(!StringUtils.isEmpty(assignee)) {
+            taskQuery.taskAssignee(assignee);
+        }
+        if(!StringUtils.isEmpty(candidateUser)) {
+            taskQuery.taskCandidateUser(candidateUser);
+        }
+        return taskQuery.list();
     }
 }

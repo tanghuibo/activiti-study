@@ -2,6 +2,8 @@ package tanghuibo.github.io.activitistudy.service;
 
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,4 +50,10 @@ public interface ActivitiService {
      * @return
      */
     ProcessInstance startProcessInstanceByKey(String processDefinitionKey, String businessKey, Map<String, Object> map);
+
+    /**
+     * 查询任务
+     * @return
+     */
+    List<Task> queryTask(TaskQueryParam param);
 }
