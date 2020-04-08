@@ -1,12 +1,13 @@
 package tanghuibo.github.io.activitistudy.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author tanghuibo
  * @date 2020/4/3上午12:18
  */
-public class DeploymentDTO {
+public class DeploymentDTO implements Serializable {
 
     private String id;
 

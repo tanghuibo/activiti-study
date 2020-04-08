@@ -12,14 +12,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import tanghuibo.github.io.activitistudy.entity.DeploymentAddParam;
+import tanghuibo.github.io.activitistudy.entity.DeploymentDeleteParam;
 import tanghuibo.github.io.activitistudy.entity.DeploymentQueryParam;
 import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
 import tanghuibo.github.io.activitistudy.service.ActivitiService;
 import tanghuibo.github.io.activitistudy.utils.ToStringUtils;
 
 import javax.annotation.Resource;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
@@ -102,5 +106,16 @@ public class ActivitiServiceImpl implements ActivitiService {
     @Override
     public void complete(String taskId) {
         taskService.complete(taskId);
+    }
+
+    @Override
+    public Boolean deleteDeploymentById(DeploymentDeleteParam param) {
+        repositoryService.deleteDeployment(param.getId());
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public Deployment addDeployment(DeploymentAddParam param) {
+        return deployByStream(param.getName(), new ByteArrayInputStream(param.getBpmnXml().getBytes(Charset.defaultCharset())));
     }
 }

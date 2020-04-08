@@ -3,6 +3,8 @@ package tanghuibo.github.io.activitistudy.service;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import tanghuibo.github.io.activitistudy.entity.DeploymentAddParam;
+import tanghuibo.github.io.activitistudy.entity.DeploymentDeleteParam;
 import tanghuibo.github.io.activitistudy.entity.DeploymentQueryParam;
 import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
 
@@ -73,4 +75,18 @@ public interface ActivitiService {
      * @param taskId
      */
     void complete(String taskId);
+
+    /**
+     * 删除流程定义
+     * @param param
+     * @return
+     */
+    Boolean deleteDeploymentById(DeploymentDeleteParam param);
+
+    /**
+     * 新增工作流
+     * @param param
+     * @return
+     */
+    Deployment addDeployment(DeploymentAddParam param);
 }

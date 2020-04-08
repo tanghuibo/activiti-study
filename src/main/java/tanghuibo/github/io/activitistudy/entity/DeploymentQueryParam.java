@@ -1,10 +1,12 @@
 package tanghuibo.github.io.activitistudy.entity;
 
+import java.io.Serializable;
+
 /**
  * @author tanghuibo
  * @date 2020/4/3上午12:11
  */
-public class DeploymentQueryParam {
+public class DeploymentQueryParam implements Serializable {
 
     /**
      * 部署名称

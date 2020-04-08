@@ -1,10 +1,10 @@
 package tanghuibo.github.io.activitistudy.container;
 
 import org.activiti.engine.repository.Deployment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tanghuibo.github.io.activitistudy.entity.DeploymentAddParam;
 import tanghuibo.github.io.activitistudy.entity.DeploymentDTO;
+import tanghuibo.github.io.activitistudy.entity.DeploymentDeleteParam;
 import tanghuibo.github.io.activitistudy.entity.DeploymentQueryParam;
 import tanghuibo.github.io.activitistudy.service.ActivitiService;
 
@@ -26,6 +26,16 @@ public class ActivitiController {
     @GetMapping("queryDeployment")
     public List<DeploymentDTO> queryDeployment(DeploymentQueryParam param) {
         return activitiService.queryDeployment(param).stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @PostMapping("deleteDeploymentById")
+    public Boolean deleteDeploymentById(@RequestBody DeploymentDeleteParam param) {
+        return activitiService.deleteDeploymentById(param);
+    }
+
+    @PostMapping("addDeployment")
+    public DeploymentDTO addDeployment(@RequestBody DeploymentAddParam param) {
+        return convertToDTO(activitiService.addDeployment(param));
     }
 
     private DeploymentDTO convertToDTO(Deployment deployment) {
