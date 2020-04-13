@@ -1,11 +1,9 @@
 package tanghuibo.github.io.activitistudy.container;
 
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.web.bind.annotation.*;
-import tanghuibo.github.io.activitistudy.entity.DeploymentAddParam;
-import tanghuibo.github.io.activitistudy.entity.DeploymentDTO;
-import tanghuibo.github.io.activitistudy.entity.DeploymentDeleteParam;
-import tanghuibo.github.io.activitistudy.entity.DeploymentQueryParam;
+import tanghuibo.github.io.activitistudy.entity.*;
 import tanghuibo.github.io.activitistudy.service.ActivitiService;
 
 import javax.annotation.Resource;
@@ -38,6 +36,11 @@ public class ActivitiController {
         return convertToDTO(activitiService.addDeployment(param));
     }
 
+    @PostMapping("startProcessInstance")
+    public ProcessInstanceDTO startProcessInstance(@RequestBody DeploymentTaskParam param) {
+        return convertToDTO(activitiService.startProcessInstance(param));
+    }
+
     private DeploymentDTO convertToDTO(Deployment deployment) {
         DeploymentDTO dto = new DeploymentDTO();
         dto.setId(deployment.getId());
@@ -49,5 +52,28 @@ public class ActivitiController {
         dto.setVersion(deployment.getVersion());
         dto.setProjectReleaseVersion(deployment.getProjectReleaseVersion());
         return dto;
+    }
+
+    private ProcessInstanceDTO convertToDTO(ProcessInstance processInstance) {
+        ProcessInstanceDTO dto = new ProcessInstanceDTO();
+        dto.setProcessDefinitionId(processInstance.getProcessDefinitionId());
+        dto.setProcessDefinitionName(processInstance.getProcessDefinitionName());
+        dto.setProcessDefinitionKey(processInstance.getProcessDefinitionKey());
+        dto.setProcessDefinitionVersion(processInstance.getProcessDefinitionVersion());
+        dto.setDeploymentId(processInstance.getDeploymentId());
+        dto.setBusinessKey(processInstance.getBusinessKey());
+        dto.setProcessVariables(processInstance.getProcessVariables());
+        dto.setTenantId(processInstance.getTenantId());
+        dto.setName(processInstance.getName());
+        dto.setDescription(processInstance.getDescription());
+        dto.setLocalizedName(processInstance.getLocalizedName());
+        dto.setLocalizedDescription(processInstance.getLocalizedDescription());
+        dto.setStartTime(processInstance.getStartTime());
+        dto.setSuspended(processInstance.isSuspended());
+        dto.setStartUserId(processInstance.getStartUserId());
+        dto.setAppVersion(processInstance.getAppVersion());
+        return dto;
+
+
     }
 }

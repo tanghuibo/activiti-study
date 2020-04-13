@@ -3,8 +3,7 @@ package tanghuibo.github.io.activitistudy.service.impl;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.repository.Deployment;
-import org.activiti.engine.repository.DeploymentQuery;
+import org.activiti.engine.repository.*;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
@@ -12,10 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import tanghuibo.github.io.activitistudy.entity.DeploymentAddParam;
-import tanghuibo.github.io.activitistudy.entity.DeploymentDeleteParam;
-import tanghuibo.github.io.activitistudy.entity.DeploymentQueryParam;
-import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
+import tanghuibo.github.io.activitistudy.entity.*;
 import tanghuibo.github.io.activitistudy.service.ActivitiService;
 import tanghuibo.github.io.activitistudy.utils.ToStringUtils;
 
@@ -104,6 +100,16 @@ public class ActivitiServiceImpl implements ActivitiService {
     }
 
     @Override
+    public List<ProcessDefinition> queryProcessDefinition(ProcessDefinitionQueryParam param) {
+        String deploymentName = param.getProcessDefinitionName();
+        ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+        if(!StringUtils.isEmpty(deploymentName)) {
+            processDefinitionQuery.processDefinitionName(deploymentName);
+        }
+        return processDefinitionQuery.list();
+    }
+
+    @Override
     public void complete(String taskId) {
         taskService.complete(taskId);
     }
@@ -117,5 +123,13 @@ public class ActivitiServiceImpl implements ActivitiService {
     @Override
     public Deployment addDeployment(DeploymentAddParam param) {
         return deployByStream(param.getName(), new ByteArrayInputStream(param.getBpmnXml().getBytes(Charset.defaultCharset())));
+    }
+
+    @Override
+    public ProcessInstance startProcessInstance(DeploymentTaskParam param) {
+        String businessKey = param.getBusinessKey();
+        String processDefinitionId = param.getProcessDefinitionId();
+        Map<String, Object> context = param.getContext();
+        return startProcessInstanceById(processDefinitionId, businessKey, context);
     }
 }

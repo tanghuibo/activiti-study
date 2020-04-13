@@ -1,12 +1,10 @@
 package tanghuibo.github.io.activitistudy.service;
 
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import tanghuibo.github.io.activitistudy.entity.DeploymentAddParam;
-import tanghuibo.github.io.activitistudy.entity.DeploymentDeleteParam;
-import tanghuibo.github.io.activitistudy.entity.DeploymentQueryParam;
-import tanghuibo.github.io.activitistudy.entity.TaskQueryParam;
+import tanghuibo.github.io.activitistudy.entity.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,6 +69,13 @@ public interface ActivitiService {
     List<Task> queryTask(TaskQueryParam param);
 
     /**
+     * 查询任务
+     * @param param
+     * @return
+     */
+    List<ProcessDefinition> queryProcessDefinition(ProcessDefinitionQueryParam param);
+
+    /**
      * 完成任务
      * @param taskId
      */
@@ -89,4 +94,11 @@ public interface ActivitiService {
      * @return
      */
     Deployment addDeployment(DeploymentAddParam param);
+
+    /**
+     * 开始流程
+     * @param param
+     * @return
+     */
+    ProcessInstance startProcessInstance(DeploymentTaskParam param);
 }
