@@ -1,6 +1,7 @@
 package tanghuibo.github.io.activitistudy.container;
 
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.web.bind.annotation.*;
 import tanghuibo.github.io.activitistudy.entity.*;
@@ -26,6 +27,11 @@ public class ActivitiController {
         return activitiService.queryDeployment(param).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    @GetMapping("queryProcessDefinition")
+    public List<ProcessDefinitionDTO> queryProcessDefinition(ProcessDefinitionQueryParam param) {
+        return activitiService.queryProcessDefinition(param).stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
     @PostMapping("deleteDeploymentById")
     public Boolean deleteDeploymentById(@RequestBody DeploymentDeleteParam param) {
         return activitiService.deleteDeploymentById(param);
@@ -39,6 +45,26 @@ public class ActivitiController {
     @PostMapping("startProcessInstance")
     public ProcessInstanceDTO startProcessInstance(@RequestBody DeploymentTaskParam param) {
         return convertToDTO(activitiService.startProcessInstance(param));
+    }
+
+    private ProcessDefinitionDTO convertToDTO(ProcessDefinition processDefinition) {
+        ProcessDefinitionDTO processDefinitionDTO = new ProcessDefinitionDTO();
+        processDefinitionDTO.setId(processDefinition.getId());
+        processDefinitionDTO.setCategory(processDefinition.getCategory());
+        processDefinitionDTO.setName(processDefinition.getName());
+        processDefinitionDTO.setKey(processDefinition.getKey());
+        processDefinitionDTO.setDescription(processDefinition.getDescription());
+        processDefinitionDTO.setVersion(processDefinition.getVersion());
+        processDefinitionDTO.setResourceName(processDefinition.getResourceName());
+        processDefinitionDTO.setDeploymentId(processDefinition.getDeploymentId());
+        processDefinitionDTO.setDiagramResourceName(processDefinition.getDiagramResourceName());
+        processDefinitionDTO.setHasStartFormKey(processDefinition.hasStartFormKey());
+        processDefinitionDTO.setHasGraphicalNotation(processDefinition.hasGraphicalNotation());
+        processDefinitionDTO.setSuspended(processDefinition.isSuspended());
+        processDefinitionDTO.setTenantId(processDefinition.getTenantId());
+        processDefinitionDTO.setEngineVersion(processDefinition.getEngineVersion());
+        processDefinitionDTO.setAppVersion(processDefinition.getAppVersion());
+        return processDefinitionDTO;
     }
 
     private DeploymentDTO convertToDTO(Deployment deployment) {
