@@ -44,7 +44,7 @@ create table basic_user
 ### 配置文件 ActivitiConfig.java 
 
 ```java
-package tanghuibo.github.io.activitistudy.config;
+package io.github.tanghuibo.activitistudy.config;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
